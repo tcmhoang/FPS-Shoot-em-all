@@ -26,8 +26,13 @@ namespace Assets.Scripts
         // Update is called once per frame
         private void Update()
         {
-            _moveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
-            _moveInput.z = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
+            // _moveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
+            // _moveInput.z = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
+
+            var verticalMove = transform.forward * Input.GetAxis("Vertical");
+            var horizontalMove = transform.right * Input.GetAxis("Horizontal");
+
+            _moveInput = (verticalMove + horizontalMove).normalized * MoveSpeed * Time.deltaTime;
 
             CharacterController.Move(_moveInput);
 
