@@ -4,9 +4,11 @@ namespace Assets.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-        public float MoveSpeed;
+        public float MoveSpeed, GravityModifier, JumpPower;
 
-        public CharacterController CharacterController;
+        private float _baseGravity;
+
+        private CharacterController _characterController;
 
         public Transform CamTransform;
 
@@ -17,32 +19,73 @@ namespace Assets.Scripts
         public bool InvertX;
         public bool InvertY;
 
+        private bool _jumpable;
+        public Transform GroundCheckPoint;
+        public LayerMask WhatIsGround;
+
         // Start is called before the first frame update
         private void Start()
         {
-        
+            _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
+            _characterController = GetComponent<CharacterController>();
         }
 
         // Update is called once per frame
+
+
         private void Update()
         {
             // _moveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
             // _moveInput.z = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
+            var currentYVelocity = _moveInput.y;
 
-            var verticalMove = transform.forward * Input.GetAxis("Vertical");
-            var horizontalMove = transform.right * Input.GetAxis("Horizontal");
+            SetNewLocationToMove();
 
-            _moveInput = (verticalMove + horizontalMove).normalized * MoveSpeed * Time.deltaTime;
+            SetGravity(currentYVelocity);
 
-            CharacterController.Move(_moveInput);
+            Jump();
 
-            var mouseInVector = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * MouseSensitivity;
+            _characterController.Move(_moveInput * Time.deltaTime);
+
+            RotateCameraByCursor();
+        }
+
+        private void Jump()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _moveInput.y = JumpPower;
+            }
+        }
+
+        private void RotateCameraByCursor()
+        {
+            var mouseInVector = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) *
+                                MouseSensitivity;
 
             if (InvertX) mouseInVector.x *= -1;
             if (InvertY) mouseInVector.y *= -1;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,
                 transform.rotation.eulerAngles.y + mouseInVector.x, transform.rotation.eulerAngles.z);
-            CamTransform.rotation = Quaternion.Euler(CamTransform.rotation.eulerAngles + new Vector3(- mouseInVector.y,0f,0f));
+            CamTransform.rotation =
+                Quaternion.Euler(CamTransform.rotation.eulerAngles + new Vector3(-mouseInVector.y, 0f, 0f));
+        }
+
+        private void SetNewLocationToMove()
+        {
+            var verticalMove = transform.forward * Input.GetAxis("Vertical");
+            var horizontalMove = transform.right * Input.GetAxis("Horizontal");
+
+            _moveInput = (verticalMove + horizontalMove).normalized * MoveSpeed;
+        }
+
+        private void SetGravity(float currentYVelocity)
+        {
+
+            _moveInput.y =_baseGravity;
+            
+            _moveInput.y += _characterController.isGrounded ? 0 : currentYVelocity;
+
         }
     }
 }
