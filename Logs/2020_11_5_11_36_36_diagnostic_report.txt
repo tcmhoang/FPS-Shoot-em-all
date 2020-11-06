@@ -1,0 +1,49 @@
+Unity Package Manager Diagnostics (v0.1.8)
+============
+Ran 7 checks
+============
+5 succeeded
+2 returned a warning
+============
+✅ UPM registry reachable (PASS)
+Make an HTTP request to the UPM package registry
+>> HTTP/1.1 200 OK
+>> X-Powered-By: Express
+>> Provider: Genesis
+>> Date: Thu, 05 Nov 2020 11:37:01 GMT
+>> Connection: close
+
+⚠️ Ping UPM registry (WARNING)
+Measure the latency of the UPM package registry API
+>> 1 ping made in 22.475 seconds
+>> Average latency: 189.89 ms
+>> Minimum latency: 189.89 ms
+>> Maximum latency: 189.89 ms
+>> Standard deviation: 0.00
+
+⚠️ Ping UPM download (WARNING)
+Measure the latency of the UPM package download endpoint
+>> 4 pings made in 5.656 seconds
+>> Average latency: 26.70 ms
+>> Minimum latency: 24.68 ms
+>> Maximum latency: 28.05 ms
+>> Standard deviation: 1.59
+
+✅ UPM registry download speed (PASS)
+Test the Internet connection using the UPM package registry
+>> Measured speed to the UPM registry: 45.82 Megabits per second
+
+✅ Speedtest.net (PASS)
+Test the Internet connection using Speedtest.net
+>> Measured speed to the Speedtest.net server: 158.29 Kilobits per second
+
+✅ HTTP proxy environment variables (PASS)
+Detect whether proxy-related environment variables are set (HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, UNITY_PROXYSERVER, UNITY_NOPROXY)
+>> No proxy support has been configured through environment variables.
+
+✅ UPM health check (PASS)
+Start the UPM process and call its health endpoint
+>> Server start duration: 1050.00 ms
+>> Server response duration: 543.41 ms
+>> Server response:
+>> {"status":"OK","nodeVersion":"v12.2.0","upmVersion":"v3.15.0"}

@@ -25,6 +25,7 @@ namespace Assets.Scripts
         private bool _canJumpAgain;
 
         public Animator Animator;
+        private bool _isShiftHold;
 
         // Start is called before the first frame update
         private void Start()
@@ -59,6 +60,7 @@ namespace Assets.Scripts
         {
             Animator.SetFloat("MoveSpeed", _moveInput.magnitude);
             Animator.SetBool("OnGround",_canJump);
+            Animator.SetBool("IsRunning", _isShiftHold);
         }
 
         private void Jump()
@@ -95,7 +97,8 @@ namespace Assets.Scripts
             var verticalMove = transform.forward * Input.GetAxis("Vertical");
             var horizontalMove = transform.right * Input.GetAxis("Horizontal");
             _moveInput = (verticalMove + horizontalMove).normalized;
-            _moveInput *= Input.GetKey(KeyCode.LeftShift) ? RunSpeed : MoveSpeed;
+            _isShiftHold = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            _moveInput *= _isShiftHold  ? RunSpeed : MoveSpeed;
         }
 
         private void SetGravity(float currentYVelocity)
