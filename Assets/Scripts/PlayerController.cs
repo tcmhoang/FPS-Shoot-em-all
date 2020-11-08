@@ -27,11 +27,17 @@ namespace Assets.Scripts
         public Animator Animator;
         private bool _isShiftHold;
 
+        public GameObject Bullet;
+        public Transform FirePoint;
+
+        private float _maxDistance;
+
         // Start is called before the first frame update
         private void Start()
         {
             _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
             _characterController = GetComponent<CharacterController>();
+            _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
         }
 
         // Update is called once per frame
@@ -53,13 +59,27 @@ namespace Assets.Scripts
 
             RotateCameraByCursor();
 
+            Shoot();
+
             Animate();
+        }
+
+        private void Shoot()
+        {
+            if (!Input.GetMouseButtonDown(0)) return;
+            if (Physics.Raycast(CamTransform.position, CamTransform.forward, out var hit, _maxDistance) &&
+                Vector3.Distance(hit.point, CamTransform.position) > 2f)
+                FirePoint.LookAt(hit.point);
+            else
+                FirePoint.LookAt(CamTransform.position + _maxDistance * CamTransform.forward);
+            Instantiate(Bullet, FirePoint.position,
+                FirePoint.rotation); //if use FirePoint then it will use size of obj
         }
 
         private void Animate()
         {
             Animator.SetFloat("MoveSpeed", _moveInput.magnitude);
-            Animator.SetBool("OnGround",_canJump);
+            Animator.SetBool("OnGround", _canJump);
             Animator.SetBool("IsRunning", _isShiftHold);
         }
 
@@ -98,7 +118,7 @@ namespace Assets.Scripts
             var horizontalMove = transform.right * Input.GetAxis("Horizontal");
             _moveInput = (verticalMove + horizontalMove).normalized;
             _isShiftHold = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-            _moveInput *= _isShiftHold  ? RunSpeed : MoveSpeed;
+            _moveInput *= _isShiftHold ? RunSpeed : MoveSpeed;
         }
 
         private void SetGravity(float currentYVelocity)
