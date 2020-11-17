@@ -4,6 +4,8 @@ namespace Assets.Scripts
 {
     public class BulletController : MonoBehaviour
     {
+        public int Damage = 1;
+
         public static float Speed = 15;
         public static float LifeTime = 5;
         private float _lifeTime;
@@ -12,14 +14,16 @@ namespace Assets.Scripts
 
         public GameObject Impact;
 
+        public bool DamageEnemy,DamgePlayer;
+
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             _lifeTime = LifeTime;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Body.velocity = transform.forward * Speed;
             _lifeTime -= Time.deltaTime;
@@ -28,9 +32,14 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Enemy")
+            if (other.gameObject.tag == "Enemy" && DamageEnemy)
             {
-                Destroy(other.gameObject);
+               other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(Damage);
+            }
+
+            if (other.gameObject.tag == "Player" && DamgePlayer)
+            {
+                Debug.Log($"Hit at {transform.position}");
             }
 
             Fire();

@@ -4,6 +4,8 @@ namespace Assets.Scripts
 {
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance;
+
         public float MoveSpeed, GravityModifier, JumpPower, RunSpeed = 12f;
 
         private float _baseGravity;
@@ -31,6 +33,11 @@ namespace Assets.Scripts
         public Transform FirePoint;
 
         private float _maxDistance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         // Start is called before the first frame update
         private void Start()

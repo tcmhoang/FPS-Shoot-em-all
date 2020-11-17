@@ -57,11 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\FPS Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
+    <Compile Include="Assets\Scripts\BallAnimations.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\BallAnimations.cs" />
+    <Compile Include="Assets\Scripts\EnemyHealthController.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\FPS Assets\model credits.txt" />
