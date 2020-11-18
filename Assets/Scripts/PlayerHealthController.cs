@@ -44,6 +44,8 @@ namespace Assets.Scripts
 
             if (_currentHealth <= 0)
             {
+                _currentHealth = 0;
+                GameManager.Instance.ReloadLevel();
                 gameObject.SetActive(false);
             }
 

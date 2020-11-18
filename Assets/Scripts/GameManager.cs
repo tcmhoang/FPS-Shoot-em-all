@@ -1,18 +1,41 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace Assets.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+        public static GameManager Instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private const float DELAY_TIME = 2;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+        }
+
+        public void ReloadLevel()
+        {
+            StartCoroutine(ReloadInvoke());
+        }
+
+        public IEnumerator ReloadInvoke()
+        {
+            yield return new WaitForSeconds(DELAY_TIME);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        }
     }
 }

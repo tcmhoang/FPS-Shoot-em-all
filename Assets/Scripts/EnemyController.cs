@@ -98,7 +98,8 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    Fire();
+                    if (PlayerController.Instance.gameObject.activeInHierarchy)
+                        Fire();
                 }
 
                 #endregion
