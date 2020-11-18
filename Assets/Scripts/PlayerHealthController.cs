@@ -8,22 +8,48 @@ namespace Assets.Scripts
 
         public int MaxHealth;
         private int _currentHealth;
+        public float InvisibleSpan = 1f;
+        private float _invisibleCounter;
 
-        public void Awake()
+        private void Awake()
         {
             Instance = this;
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             _currentHealth = MaxHealth;
+            UIController.Instance.HealthSlider.maxValue = MaxHealth;
+            UpdateUi();
+        }
+
+        private void UpdateUi()
+        {
+            UIController.Instance.HealthSlider.value = _currentHealth;
+            UIController.Instance.HealthText.text = $"HEALTH: {_currentHealth}/{MaxHealth}";
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-        
+            if (_invisibleCounter > 0)
+                _invisibleCounter -= Time.deltaTime;
         }
+
+        public void DamagePlayer(int amount)
+        {
+            if (_invisibleCounter > 0) return;
+            _currentHealth -= amount;
+
+            if (_currentHealth <= 0)
+            {
+                gameObject.SetActive(false);
+            }
+
+            _invisibleCounter = InvisibleSpan;
+            UpdateUi();
+        }
+
     }
 }

@@ -40,12 +40,11 @@ namespace Assets.Scripts
             if (other.gameObject.tag == "HeadShot" && DamageEnemy)
             {
                 other.transform.parent.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(Damage * 2);
-                Debug.Log("Head shot hit");
             }
 
             if (other.gameObject.tag == "Player" && DamagePlayer)
             {
-                Debug.Log($"Hit at {transform.position}");
+                PlayerHealthController.Instance.DamagePlayer(Damage);
             }
 
             Fire();
