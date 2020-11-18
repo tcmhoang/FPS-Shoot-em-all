@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public GameObject Impact;
 
-        public bool DamageEnemy,DamgePlayer;
+        public bool DamageEnemy,DamagePlayer;
 
         // Start is called before the first frame update
         private void Start()
@@ -30,14 +30,20 @@ namespace Assets.Scripts
             if (_lifeTime < 0) Fire();
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Component other)
         {
             if (other.gameObject.tag == "Enemy" && DamageEnemy)
             {
                other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(Damage);
             }
 
-            if (other.gameObject.tag == "Player" && DamgePlayer)
+            if (other.gameObject.tag == "HeadShot" && DamageEnemy)
+            {
+                other.transform.parent.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(Damage * 2);
+                Debug.Log("Head shot hit");
+            }
+
+            if (other.gameObject.tag == "Player" && DamagePlayer)
             {
                 Debug.Log($"Hit at {transform.position}");
             }

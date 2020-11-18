@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Scripts
 {
     public class EnemyController : MonoBehaviour
     {
-
-
         private bool _isChasing;
         public float DistanceToChase = 10f, DistanceToLose = 15f, DistanceToStop = 2f;
 
@@ -20,14 +19,18 @@ namespace Assets.Scripts
         public GameObject Bullet;
         public Transform FirePoint;
 
-        public float FireRate;
-        private float _fireCount;
+        public float FireRate, ShootDuration = 1, ReloadTime = 2;
+        private float _fireCount, _shootTime, _reloadCounter;
+
+        public Animator Animator;
 
 
         // Start is called before the first frame update
         void Start()
         {
             _startPoint = transform.position;
+            _reloadCounter = ReloadTime;
+            _shootTime = ShootDuration;
         }
 
         // Update is called once per frame
@@ -37,27 +40,43 @@ namespace Assets.Scripts
             _targetPoint.y = transform.position.y;
 
             float distance = Vector3.Distance(transform.position, _targetPoint);
+
             if (!_isChasing)
             {
+                #region Start Chassing Player
+
                 if (distance < DistanceToChase)
                 {
                     _isChasing = true;
-                    _fireCount = 1;
+
+                    _shootTime = ShootDuration;
+                    _reloadCounter = ReloadTime;
                 }
 
-                if (_chaseCounter < 0) return;
-                _chaseCounter -= Time.deltaTime;
-                if (_chaseCounter <= 0)
+                #endregion
+
+
+                #region Check if continue chasing or not
+
+                if (_chaseCounter > 0)
                 {
-                    Agent.destination = _startPoint;
+                    _chaseCounter -= Time.deltaTime;
+                    if (_chaseCounter <= 0)
+                        Agent.destination = _startPoint;
                 }
+
+                #endregion
+
+                Animator.SetBool("IsMoving", Agent.remainingDistance > .25f);
             }
             else
             {
                 // transform.LookAt(_targetPoint);
                 // Body.velocity = transform.forward * MoveSpeed;
 
-                //Stop
+                #region Chasing
+
+                //Freeze
                 Agent.destination = distance > DistanceToStop ? _targetPoint : transform.position;
 
                 //Chasing
@@ -67,13 +86,53 @@ namespace Assets.Scripts
                     _isChasing = false;
                 }
 
-                _fireCount -= Time.deltaTime;
-                if (!(_fireCount <= 0)) return;
-                _fireCount = FireRate;
-                Instantiate(Bullet, FirePoint.position, FirePoint.rotation);
-            }
+                #endregion
 
-           
+                #region Shooting
+
+                if (_reloadCounter > 0)
+                {
+                    _reloadCounter -= Time.deltaTime;
+                    if (_reloadCounter <= 0) _shootTime = ShootDuration;
+                    Animator.SetBool("IsMoving", true);
+                }
+                else
+                {
+                    Fire();
+                }
+
+                #endregion
+            }
+        }
+
+        private void Fire()
+        {
+            _shootTime -= Time.deltaTime;
+            if (_shootTime > 0)
+            {
+                _fireCount -= Time.deltaTime;
+                if (_fireCount > 0) return;
+                _fireCount = FireRate;
+                Aim();
+            }
+            else
+                _reloadCounter = ReloadTime;
+        }
+
+        private void Aim()
+        {
+            Agent.destination = transform.position;
+            Animator.SetBool("IsMoving", false);
+
+            FirePoint.LookAt(PlayerController.Instance.transform.position + new Vector3(0, 1.2f, 0));
+            var targetDirection = PlayerController.Instance.transform.position - transform.position;
+            if (Math.Abs(Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up)) < 30)
+            {
+                Instantiate(Bullet, FirePoint.position, FirePoint.rotation);
+                Animator.SetTrigger("FireShot");
+            }
+            else
+                _reloadCounter = ReloadTime;
         }
     }
 }
