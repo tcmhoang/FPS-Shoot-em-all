@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Elements;
 using UnityEngine;
 
@@ -37,8 +38,13 @@ namespace Assets.Scripts.Player
 
         public Gun ActiveGun;
 
-        public List<Gun> Guns = new List<Gun>(3);
+        public List<Gun> Guns = new List<Gun>();
+        public List<Gun> UnlockableGuns = new List<Gun>();
         private int _curGun;
+
+        public Transform AdsPoint, GunHolder;
+        private Vector3 _gunStartPosition;
+        private const float ADS_SPEED = 2;
 
         private void Awake()
         {
@@ -52,8 +58,10 @@ namespace Assets.Scripts.Player
             _characterController = GetComponent<CharacterController>();
             _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
 
-            _curGun = 1;
+            _curGun = 0;
             SetGun();
+
+            _gunStartPosition = GunHolder.localPosition;
         }
 
         // Update is called once per frame
@@ -77,6 +85,8 @@ namespace Assets.Scripts.Player
 
             SwitchGun();
 
+            Aim();
+
             if (ActiveGun.CanFireNow)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -86,6 +96,22 @@ namespace Assets.Scripts.Player
             }
 
             Animate();
+        }
+
+        private void Aim()
+        {
+            if (Input.GetMouseButtonDown(1))
+                CameraController.Instance.ZoomIn(ActiveGun.ZoomAmount);
+
+            if (Input.GetMouseButtonUp(1))
+                CameraController.Instance.ZoomOut();
+
+            if (Input.GetMouseButton(1))
+                GunHolder.position =
+                    Vector3.MoveTowards(GunHolder.position, AdsPoint.position, ADS_SPEED * Time.deltaTime);
+            else
+                GunHolder.localPosition =
+                    Vector3.MoveTowards(GunHolder.localPosition, _gunStartPosition, ADS_SPEED * Time.deltaTime);
         }
 
         private void AutoFire()
@@ -175,6 +201,18 @@ namespace Assets.Scripts.Player
 
             SetGun();
             ActiveGun.UpdateUi();
+        }
+
+        public void PickupGun(string name)
+        {
+            if(UnlockableGuns.Count == 0) return;
+            var picked  = UnlockableGuns.Find(gun => string.Equals(gun.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            if (picked == null) return;
+            UnlockableGuns.Remove(picked);
+            Guns.Add(picked);
+
+            _curGun = Guns.Count - 1;
+            SetGun();
         }
     }
 }

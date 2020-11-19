@@ -19,6 +19,9 @@ namespace Assets.Scripts.Elements
         [HideInInspector] public bool CanFireNow;
         private float _fireCounter;
 
+        public float ZoomAmount;
+        public string Name;
+
         // Start is called before the first frame update
         private void Start()
         {
