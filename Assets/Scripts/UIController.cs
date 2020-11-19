@@ -9,6 +9,8 @@ namespace Assets.Scripts
         public Slider HealthSlider;
         public Text HealthText;
 
+        public Text AmmoText;
+
         private void Awake()
         {
             Instance = this;

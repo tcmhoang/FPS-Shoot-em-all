@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Elements;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -29,10 +30,11 @@ namespace Assets.Scripts.Player
         public Animator Animator;
         private bool _isShiftHold;
 
-        public GameObject Bullet;
         public Transform FirePoint;
 
         private float _maxDistance;
+
+        public Gun ActiveGun;
 
         private void Awake()
         {
@@ -66,21 +68,34 @@ namespace Assets.Scripts.Player
 
             RotateCameraByCursor();
 
-            Shoot();
+            if (ActiveGun.CanFireNow)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    Shoot();
+
+                AutoFire();
+            }
 
             Animate();
         }
 
+        private void AutoFire()
+        {
+            if (Input.GetMouseButton(0) && ActiveGun.CanAutoFire) Shoot();
+        }
+
         private void Shoot()
         {
-            if (!Input.GetMouseButtonDown(0)) return;
+            ActiveGun.RemoveABullet();
+            if (!ActiveGun.HasAmmo()) return;
             if (Physics.Raycast(CamTransform.position, CamTransform.forward, out var hit, _maxDistance) &&
                 Vector3.Distance(hit.point, CamTransform.position) > 2f)
                 FirePoint.LookAt(hit.point);
             else
                 FirePoint.LookAt(CamTransform.position + _maxDistance * CamTransform.forward);
-            Instantiate(Bullet, FirePoint.position,
+            Instantiate(ActiveGun.Bullet, FirePoint.position,
                 FirePoint.rotation); //if use FirePoint then it will use size of obj
+            ActiveGun.Reload();
         }
 
         private void Animate()

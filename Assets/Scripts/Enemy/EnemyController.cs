@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy
 
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             _startPoint = transform.position;
             _reloadCounter = ReloadTime;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Enemy
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             _targetPoint = PlayerController.Instance.transform.position;
             _targetPoint.y = transform.position.y;
