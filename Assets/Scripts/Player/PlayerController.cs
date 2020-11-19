@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Elements;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Elements;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -30,11 +31,14 @@ namespace Assets.Scripts.Player
         public Animator Animator;
         private bool _isShiftHold;
 
-        public Transform FirePoint;
+        private Transform _firePoint;
 
         private float _maxDistance;
 
         public Gun ActiveGun;
+
+        public List<Gun> Guns = new List<Gun>(3);
+        private int _curGun;
 
         private void Awake()
         {
@@ -47,6 +51,9 @@ namespace Assets.Scripts.Player
             _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
             _characterController = GetComponent<CharacterController>();
             _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
+
+            _curGun = 1;
+            SetGun();
         }
 
         // Update is called once per frame
@@ -67,6 +74,8 @@ namespace Assets.Scripts.Player
             _characterController.Move(_moveInput * Time.deltaTime);
 
             RotateCameraByCursor();
+
+            SwitchGun();
 
             if (ActiveGun.CanFireNow)
             {
@@ -90,11 +99,11 @@ namespace Assets.Scripts.Player
             if (!ActiveGun.HasAmmo()) return;
             if (Physics.Raycast(CamTransform.position, CamTransform.forward, out var hit, _maxDistance) &&
                 Vector3.Distance(hit.point, CamTransform.position) > 2f)
-                FirePoint.LookAt(hit.point);
+                _firePoint.LookAt(hit.point);
             else
-                FirePoint.LookAt(CamTransform.position + _maxDistance * CamTransform.forward);
-            Instantiate(ActiveGun.Bullet, FirePoint.position,
-                FirePoint.rotation); //if use FirePoint then it will use size of obj
+                _firePoint.LookAt(CamTransform.position + _maxDistance * CamTransform.forward);
+            Instantiate(ActiveGun.Bullet, _firePoint.position,
+                _firePoint.rotation); //if use FirePoint then it will use size of obj
             ActiveGun.Reload();
         }
 
@@ -147,6 +156,25 @@ namespace Assets.Scripts.Player
         {
             _moveInput.y = _baseGravity;
             _moveInput.y += _characterController.isGrounded ? 0 : currentYVelocity;
+        }
+
+        private void SetGun()
+        {
+            ActiveGun = Guns[_curGun];
+            ActiveGun.gameObject.SetActive(true);
+            _firePoint = ActiveGun.FirePoint;
+        }
+
+        private void SwitchGun()
+        {
+            if (!Input.GetKeyDown(KeyCode.Tab)) return;
+            ActiveGun.gameObject.SetActive(false);
+
+            _curGun++;
+            _curGun = _curGun == Guns.Count ? 0 : _curGun;
+
+            SetGun();
+            ActiveGun.UpdateUi();
         }
     }
 }

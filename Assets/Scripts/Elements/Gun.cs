@@ -14,6 +14,8 @@ namespace Assets.Scripts.Elements
 
         public int PickupAmount;
 
+        public Transform FirePoint;
+
         [HideInInspector] public bool CanFireNow;
         private float _fireCounter;
 
@@ -38,14 +40,12 @@ namespace Assets.Scripts.Elements
 
         public void RemoveABullet()
         {
-            if (CurrentAmmo > 0)
-            {
-                CurrentAmmo--;
-                UpdateUi();
-            }
+            if (CurrentAmmo <= 0) return;
+            CurrentAmmo--;
+            UpdateUi();
         }
 
-        private void UpdateUi()
+        public void UpdateUi()
         {
             UIController.Instance.AmmoText.text = $"AMMO: {CurrentAmmo}";
         }

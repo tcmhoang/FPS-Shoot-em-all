@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 01af92452ffecf04688c5bef38922895, type: 2}
+  - {fileID: 2100000, guid: 3db67f905ea60d046964d53f668eea1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 5
   Body: {fileID: 3638929243518751589}
-  Impact: {fileID: 1926975583312310223, guid: 4933710b673a71e469a224f882527381, type: 3}
+  Impact: {fileID: 1926975583312310223, guid: fb5baa5c5e65fb643a4f9f40337ed1a7, type: 3}
   DamageEnemy: 0
   DamagePlayer: 1
 --- !u!54 &3638929243518751589
@@ -151,7 +151,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 01af92452ffecf04688c5bef38922895, type: 2}
+  - {fileID: 2100000, guid: 3db67f905ea60d046964d53f668eea1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
