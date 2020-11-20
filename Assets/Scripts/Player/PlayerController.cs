@@ -51,14 +51,14 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             Instance = this;
+            _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
+            _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-            _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
             _characterController = GetComponent<CharacterController>();
-            _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
 
             _curGun = 0;
             SetGun();

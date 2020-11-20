@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 39f5f290068e73a4d9da1639ae95775c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Galactus
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b3ba66a56241d5c46b4d785f4aadd73a, type: 3}
+  - {fileID: 12800000, guid: 8396dfb565033cf4f8e94362d6751535, type: 3}
+  - {fileID: 12800000, guid: 109bbb9b634f2384783c69a45534d9f3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
