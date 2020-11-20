@@ -46,6 +46,8 @@ namespace Assets.Scripts.Player
         private Vector3 _gunStartPosition;
         private const float ADS_SPEED = 2;
 
+        public Transform MuzzleFlash;
+
         private void Awake()
         {
             Instance = this;
@@ -82,6 +84,8 @@ namespace Assets.Scripts.Player
             _characterController.Move(_moveInput * Time.deltaTime);
 
             RotateCameraByCursor();
+
+            MuzzleFlash.gameObject.SetActive(false);
 
             SwitchGun();
 
@@ -130,6 +134,9 @@ namespace Assets.Scripts.Player
                 _firePoint.LookAt(CamTransform.position + _maxDistance * CamTransform.forward);
             Instantiate(ActiveGun.Bullet, _firePoint.position,
                 _firePoint.rotation); //if use FirePoint then it will use size of obj
+
+            MuzzleFlash.gameObject.SetActive(true);
+
             ActiveGun.Reload();
         }
 
@@ -189,6 +196,8 @@ namespace Assets.Scripts.Player
             ActiveGun = Guns[_curGun];
             ActiveGun.gameObject.SetActive(true);
             _firePoint = ActiveGun.FirePoint;
+
+            MuzzleFlash.localPosition = ActiveGun.FirePoint.localPosition;
         }
 
         private void SwitchGun()

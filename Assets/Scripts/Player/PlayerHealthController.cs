@@ -51,6 +51,7 @@ namespace Assets.Scripts.Player
 
             _invisibleCounter = InvisibleSpan;
             UpdateUi();
+            UIController.Instance.Damage();
         }
 
         public void Heal(int amount)
