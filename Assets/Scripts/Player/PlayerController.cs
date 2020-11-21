@@ -51,14 +51,14 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             Instance = this;
-            _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
-            _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
         }
 
         // Start is called before the first frame update
         private void Start()
         {
             _characterController = GetComponent<CharacterController>();
+
+            _maxDistance = _baseGravity = 0;
 
             _curGun = 0;
             SetGun();
@@ -71,7 +71,12 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            // _moveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
+            if (UIController.Instance.PauseScreen.activeInHierarchy) return;
+
+            _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
+            _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration
+
+            // // _moveInput.x = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
             // _moveInput.z = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
             var currentYVelocity = _moveInput.y;
 
@@ -101,6 +106,7 @@ namespace Assets.Scripts.Player
 
             Animate();
         }
+
 
         private void Aim()
         {
@@ -214,8 +220,9 @@ namespace Assets.Scripts.Player
 
         public void PickupGun(string name)
         {
-            if(UnlockableGuns.Count == 0) return;
-            var picked  = UnlockableGuns.Find(gun => string.Equals(gun.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            if (UnlockableGuns.Count == 0) return;
+            var picked = UnlockableGuns.Find(gun =>
+                string.Equals(gun.Name, name, StringComparison.CurrentCultureIgnoreCase));
             if (picked == null) return;
             UnlockableGuns.Remove(picked);
             Guns.Add(picked);

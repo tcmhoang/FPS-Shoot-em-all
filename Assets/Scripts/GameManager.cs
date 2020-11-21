@@ -10,6 +10,7 @@ namespace Assets.Scripts
 
         private const float DELAY_TIME = 2;
 
+
         private void Awake()
         {
             Instance = this;
@@ -24,6 +25,28 @@ namespace Assets.Scripts
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseUnPause();
+            }
+        }
+
+        public void PauseUnPause()
+        {
+            var pauseScreen = UIController.Instance.PauseScreen;
+
+            if (pauseScreen.activeInHierarchy)
+            {
+                pauseScreen.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                pauseScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0;
+            }
         }
 
         public void ReloadLevel()

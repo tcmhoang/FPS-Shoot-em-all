@@ -22,7 +22,7 @@ namespace Assets.Scripts
 
         public void PlayGame()
         {
-            SceneManager.LoadSceneAsync(FirstLevel);
+            SceneManager.LoadScene(FirstLevel);
         }
 
         public void QuitGame()

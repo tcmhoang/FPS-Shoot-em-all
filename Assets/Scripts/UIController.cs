@@ -15,6 +15,8 @@ namespace Assets.Scripts
         private const float _damageAlpha = 0.25f;
         private const float _damageFadeSpeed = 0.5f;
 
+        public GameObject PauseScreen;
+
         private void Awake()
         {
             Instance = this;
