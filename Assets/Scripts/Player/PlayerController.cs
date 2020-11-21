@@ -74,7 +74,7 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            if (UIController.Instance.PauseScreen.activeInHierarchy) return;
+            if (UIController.Instance.PauseScreen.activeInHierarchy || GameManager.Instance.LevelEnding) return;
 
             _maxDistance = BulletController.LifeTime / Time.deltaTime * BulletController.Speed;
             _baseGravity = Physics.gravity.y * GravityModifier * Time.deltaTime; // acceleration

@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
         public AudioSource FootstepSlow, FootstepFast;
 
+        [HideInInspector] public bool LevelEnding;
+
 
 
         private void Awake()

@@ -19,7 +19,8 @@ namespace Assets.Scripts
     {
         public static AudioManager Instance;
 
-        public AudioSource bgm;
+        public AudioSource bgm, victory;
+
 
         public AudioSource[] SoundEffects;
 
@@ -52,6 +53,12 @@ namespace Assets.Scripts
         public void StopSfx(SoundIndex index)
         {
             SoundEffects[(int) index].Stop();
+        }
+
+        public void PlayLevelVictory()
+        {
+            StopBgm();
+            victory.Play();
         }
     }
 }

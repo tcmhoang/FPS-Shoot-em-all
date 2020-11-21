@@ -39,7 +39,7 @@ namespace Assets.Scripts.Player
 
         public void Damage(int amount)
         {
-            if (_invisibleCounter > 0) return;
+            if (_invisibleCounter > 0 || GameManager.Instance.LevelEnding) return;
             _currentHealth -= amount;
             AudioManager.Instance.PlaySfx(SoundIndex.Hurt);
 

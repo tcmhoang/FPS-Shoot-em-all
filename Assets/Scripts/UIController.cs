@@ -11,6 +11,8 @@ namespace Assets.Scripts
 
         public Text AmmoText;
 
+        public Image BlackGroundTransition;
+
         public Image DamageEffect;
         private const float _damageAlpha = 0.35f;
         private const float _damageFadeSpeed = 0.3f;
@@ -35,6 +37,15 @@ namespace Assets.Scripts
                 DamageEffect.color = new Color(DamageEffect.color.r, DamageEffect.color.g, DamageEffect.color.b,
                     Mathf.MoveTowards(DamageEffect.color.a, 0, _damageFadeSpeed * Time.deltaTime));
             }
+
+            if (GameManager.Instance.LevelEnding)
+                BlackGroundTransition.color = new Color(BlackGroundTransition.color.r, BlackGroundTransition.color.g,
+                    BlackGroundTransition.color.b,
+                    Mathf.MoveTowards(BlackGroundTransition.color.a, 1, _damageFadeSpeed * Time.deltaTime));
+            else
+                BlackGroundTransition.color = new Color(BlackGroundTransition.color.r, BlackGroundTransition.color.g,
+                    BlackGroundTransition.color.b,
+                    Mathf.MoveTowards(BlackGroundTransition.color.a, 0, _damageFadeSpeed * Time.deltaTime));
         }
 
         public void Damage()
