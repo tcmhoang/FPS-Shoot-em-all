@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Elements;
+using Assets.Scripts.Elements.GunRel;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
