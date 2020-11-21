@@ -51,6 +51,8 @@ namespace Assets.Scripts.Player
         private bool _isBounce;
         private float _boundForce;
 
+        private const float MaxViewAngle = 60f;
+
         private void Awake()
         {
             Instance = this;
@@ -188,7 +190,6 @@ namespace Assets.Scripts.Player
                 _moveInput.y = JumpPower;
                 _canJumpAgain = false;
             }
-
         }
 
 
@@ -202,6 +203,22 @@ namespace Assets.Scripts.Player
                 transform.rotation.eulerAngles.y + mouseInVector.x, transform.rotation.eulerAngles.z);
             CamTransform.rotation =
                 Quaternion.Euler(CamTransform.rotation.eulerAngles + new Vector3(-mouseInVector.y, 0f, 0f));
+            NormalizeViewAngle();
+        }
+
+        private void NormalizeViewAngle()
+        {
+            if (CamTransform.rotation.eulerAngles.x > MaxViewAngle && CamTransform.rotation.eulerAngles.x < 180)
+            {
+                CamTransform.rotation = Quaternion.Euler(MaxViewAngle, CamTransform.rotation.eulerAngles.y,
+                    CamTransform.rotation.eulerAngles.z);
+            }
+            else if (CamTransform.rotation.eulerAngles.x > 180 &&
+                     CamTransform.rotation.eulerAngles.x < 360 - MaxViewAngle)
+            {
+                CamTransform.rotation = Quaternion.Euler(-MaxViewAngle, CamTransform.rotation.eulerAngles.y,
+                    CamTransform.rotation.eulerAngles.z);
+            }
         }
 
         private void SetMoveVector()

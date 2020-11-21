@@ -20,6 +20,8 @@ namespace Assets.Scripts
         private void Start()
         {
             StartCoroutine(DelayShow(TimeDelay));
+
+            Cursor.lockState = CursorLockMode.None;
         }
 
         private void Update()
