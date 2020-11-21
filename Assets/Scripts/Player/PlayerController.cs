@@ -48,6 +48,9 @@ namespace Assets.Scripts.Player
 
         public Transform MuzzleFlash;
 
+        private bool _isBounce;
+        private float _boundForce;
+
         private void Awake()
         {
             Instance = this;
@@ -86,6 +89,8 @@ namespace Assets.Scripts.Player
 
             Jump();
 
+            Bounce();
+
             _characterController.Move(_moveInput * Time.deltaTime);
 
             RotateCameraByCursor();
@@ -105,6 +110,20 @@ namespace Assets.Scripts.Player
             }
 
             Animate();
+        }
+
+        private void Bounce()
+        {
+            if (!_isBounce) return;
+            _isBounce = false;
+            _canJumpAgain = true;
+            _moveInput.y += _boundForce;
+        }
+
+        public void Bounce(float bounceAmount)
+        {
+            _isBounce = true;
+            _boundForce = bounceAmount;
         }
 
 
@@ -157,16 +176,19 @@ namespace Assets.Scripts.Player
         {
             _canJump = Physics.OverlapSphere(GroundCheckPoint.position, .25f, GroundRadar).Length > 0;
             if (!Input.GetKeyDown(KeyCode.Space)) return;
+            if (!_canJump && !_canJumpAgain) return;
+            AudioManager.Instance.PlaySfx(SoundIndex.Jump);
             if (_canJump)
             {
                 _moveInput.y = JumpPower;
                 _canJumpAgain = true;
             }
-            else if (_canJumpAgain)
+            else
             {
                 _moveInput.y = JumpPower;
                 _canJumpAgain = false;
             }
+
         }
 
 

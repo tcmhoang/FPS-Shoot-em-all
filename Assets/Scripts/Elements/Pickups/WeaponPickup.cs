@@ -10,12 +10,11 @@ namespace Assets.Scripts.Elements.Pickups
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!_isCollected && other.gameObject.tag == "Player")
-            {
-                PlayerController.Instance.PickupGun(GunName);
-                Destroy(gameObject);
-                _isCollected = true;
-            }
+            if (_isCollected || other.gameObject.tag != "Player") return;
+            AudioManager.Instance.PlaySfx(SoundIndex.Gun);
+            PlayerController.Instance.PickupGun(GunName);
+            Destroy(gameObject);
+            _isCollected = true;
         }
     }
 }

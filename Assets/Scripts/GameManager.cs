@@ -10,6 +10,9 @@ namespace Assets.Scripts
 
         private const float DELAY_TIME = 2;
 
+        public AudioSource FootstepSlow, FootstepFast;
+
+
 
         private void Awake()
         {
@@ -40,12 +43,17 @@ namespace Assets.Scripts
                 pauseScreen.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
+
+                FootstepFast.Play();
+                FootstepSlow.Play();
             }
             else
             {
                 pauseScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
+                FootstepFast.Stop();
+                FootstepSlow.Stop();
             }
         }
 

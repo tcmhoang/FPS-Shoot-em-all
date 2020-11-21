@@ -20,7 +20,10 @@ namespace Assets.Scripts.Enemy
         {
             CurrentHealth-=damageAmount;
             if (CurrentHealth <= 0)
+            {
+                AudioManager.Instance.PlaySfx(SoundIndex.Explosion);
                 Destroy(gameObject);
+            }
         }
     }
 }

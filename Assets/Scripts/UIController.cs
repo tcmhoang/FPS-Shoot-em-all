@@ -12,8 +12,8 @@ namespace Assets.Scripts
         public Text AmmoText;
 
         public Image DamageEffect;
-        private const float _damageAlpha = 0.25f;
-        private const float _damageFadeSpeed = 0.5f;
+        private const float _damageAlpha = 0.35f;
+        private const float _damageFadeSpeed = 0.3f;
 
         public GameObject PauseScreen;
 

@@ -27,10 +27,9 @@ namespace Assets.Scripts.Elements
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
-            {
-                PlayerPrefs.SetString($"{SceneManager.GetActiveScene().name}_cp", Name);
-            }
+            if (other.gameObject.tag != "Player") return;
+            PlayerPrefs.SetString($"{SceneManager.GetActiveScene().name}_cp", Name);
+            AudioManager.Instance.PlaySfx(SoundIndex.Checkpoint);
         }
     }
 }

@@ -41,12 +41,17 @@ namespace Assets.Scripts.Player
         {
             if (_invisibleCounter > 0) return;
             _currentHealth -= amount;
+            AudioManager.Instance.PlaySfx(SoundIndex.Hurt);
 
             if (_currentHealth <= 0)
             {
+                AudioManager.Instance.StopBgm();
+
                 _currentHealth = 0;
                 GameManager.Instance.ReloadLevel();
                 gameObject.SetActive(false);
+                AudioManager.Instance.StopSfx(SoundIndex.Hurt);
+                AudioManager.Instance.PlaySfx(SoundIndex.Dead);
             }
 
             _invisibleCounter = InvisibleSpan;

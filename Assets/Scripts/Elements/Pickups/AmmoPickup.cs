@@ -10,6 +10,7 @@ namespace Assets.Scripts.Elements.Pickups
         private void OnTriggerEnter(Collider other)
         {
             if (_collected || other.gameObject.tag != "Player") return;
+            AudioManager.Instance.PlaySfx(SoundIndex.Ammo);
             PlayerController.Instance.ActiveGun.GetAmmo();   
             _collected = true;
             Destroy(gameObject);
