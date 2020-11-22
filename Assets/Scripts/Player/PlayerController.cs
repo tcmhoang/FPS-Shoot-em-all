@@ -238,6 +238,8 @@ namespace Assets.Scripts.Player
 
         private void SetGun()
         {
+            ActiveGun.gameObject.SetActive(false);
+
             ActiveGun = Guns[_curGun];
             ActiveGun.gameObject.SetActive(true);
             _firePoint = ActiveGun.FirePoint;
@@ -248,7 +250,6 @@ namespace Assets.Scripts.Player
         private void SwitchGun()
         {
             if (!Input.GetKeyDown(KeyCode.Tab)) return;
-            ActiveGun.gameObject.SetActive(false);
 
             _curGun++;
             _curGun = _curGun == Guns.Count ? 0 : _curGun;
