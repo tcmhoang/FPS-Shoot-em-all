@@ -8276,7 +8276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 8
   GravityModifier: 2
-  JumpPower: 20
+  JumpPower: 13
   RunSpeed: 12
   CamTransform: {fileID: 3697197788334016709}
   MouseSensitivity: 2
@@ -42851,7 +42851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3260fafce7830448a65b9285259ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLevel: test
+  NextLevel: Victory
 --- !u!4 &4558970804278205156
 Transform:
   m_ObjectHideFlags: 0
@@ -52677,20 +52677,6 @@ Transform:
   m_Father: {fileID: 5733455389543874182}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8411535100685471300
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101836934036}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
 --- !u!1 &8411535100715391224
 GameObject:
   m_ObjectHideFlags: 0
@@ -52722,34 +52708,6 @@ Transform:
   m_Father: {fileID: 5733455389649701354}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8411535101099395365
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101429300469}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
---- !u!64 &8411535101136430517
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101461598309}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
 --- !u!4 &8411535101186196580
 Transform:
   m_ObjectHideFlags: 0
@@ -52954,7 +52912,6 @@ GameObject:
   - component: {fileID: 8411535101429260501}
   - component: {fileID: 8411535101428490485}
   - component: {fileID: 8411535101427360309}
-  - component: {fileID: 8411535101099395365}
   m_Layer: 0
   m_Name: turret_exclusive
   m_TagString: Untagged
@@ -52973,7 +52930,6 @@ GameObject:
   - component: {fileID: 8411535101429260503}
   - component: {fileID: 8411535101428490487}
   - component: {fileID: 8411535101427360311}
-  - component: {fileID: 8411535102181151190}
   m_Layer: 0
   m_Name: turretWeapon
   m_TagString: Untagged
@@ -52992,7 +52948,6 @@ GameObject:
   - component: {fileID: 8411535101461957701}
   - component: {fileID: 8411535101462760549}
   - component: {fileID: 8411535101463858853}
-  - component: {fileID: 8411535101136430517}
   m_Layer: 0
   m_Name: turret_exclusive
   m_TagString: Untagged
@@ -53011,7 +52966,6 @@ GameObject:
   - component: {fileID: 8411535101461957703}
   - component: {fileID: 8411535101462760551}
   - component: {fileID: 8411535101463858855}
-  - component: {fileID: 8411535102211374406}
   m_Layer: 0
   m_Name: turretWeapon
   m_TagString: Untagged
@@ -53150,34 +53104,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8411535101610533339
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535102066625786}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
---- !u!64 &8411535101789771447
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101836934038}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
 --- !u!33 &8411535101834028948
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -53290,7 +53216,6 @@ GameObject:
   - component: {fileID: 8411535101837420468}
   - component: {fileID: 8411535101834028948}
   - component: {fileID: 8411535101834995028}
-  - component: {fileID: 8411535100685471300}
   m_Layer: 0
   m_Name: turret_exclusive
   m_TagString: Untagged
@@ -53309,7 +53234,6 @@ GameObject:
   - component: {fileID: 8411535101837420470}
   - component: {fileID: 8411535101834028950}
   - component: {fileID: 8411535101834995030}
-  - component: {fileID: 8411535101789771447}
   m_Layer: 0
   m_Name: turretWeapon
   m_TagString: Untagged
@@ -53478,7 +53402,6 @@ GameObject:
   - component: {fileID: 8411535102066987226}
   - component: {fileID: 8411535102065692922}
   - component: {fileID: 8411535102064693818}
-  - component: {fileID: 8411535101610533339}
   m_Layer: 0
   m_Name: turretWeapon
   m_TagString: Untagged
@@ -53516,34 +53439,6 @@ Transform:
   m_Father: {fileID: 8411535102066987224}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8411535102181151190
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101429300471}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
---- !u!64 &8411535102211374406
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8411535101461598311}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 832e39e0fb32ea946bbbf916f6874d95, type: 3}
 --- !u!4 &8468647666375365440
 Transform:
   m_ObjectHideFlags: 0
