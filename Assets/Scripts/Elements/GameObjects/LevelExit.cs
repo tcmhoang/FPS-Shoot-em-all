@@ -29,6 +29,7 @@ namespace Assets.Scripts.Elements.GameObjects
             StartCoroutine(Delay(_delayToEnd));
 
             AudioManager.Instance.PlayLevelVictory();
+            PlayerPrefs.SetString("CurrentLevel",NextLevel);
         }
 
         private IEnumerator Delay(float delay)

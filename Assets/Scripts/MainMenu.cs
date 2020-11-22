@@ -8,27 +8,32 @@ namespace Assets.Scripts
     {
         public string FirstLevel;
 
+
+        public GameObject ContinueButton;
+
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-        
+            if (PlayerPrefs.HasKey("CurrentLevel")) return;
+            ContinueButton.SetActive(false);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
 
         public void PlayGame()
         {
             SceneManager.LoadScene(FirstLevel);
+            PlayerPrefs.DeleteAll();
         }
 
         public void QuitGame()
         {
             Application.Quit();
             Debug.Log("Quitting Game");
+        }
+
+        public void Continue()
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
         }
     }
 }

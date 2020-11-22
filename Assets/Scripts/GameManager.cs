@@ -25,6 +25,7 @@ namespace Assets.Scripts
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         // Update is called once per frame
@@ -46,6 +47,8 @@ namespace Assets.Scripts
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
 
+                Cursor.visible = false;
+
                 FootstepFast.Play();
                 FootstepSlow.Play();
             }
@@ -54,6 +57,9 @@ namespace Assets.Scripts
                 pauseScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
+
+                Cursor.visible = true;
+
                 FootstepFast.Stop();
                 FootstepSlow.Stop();
             }

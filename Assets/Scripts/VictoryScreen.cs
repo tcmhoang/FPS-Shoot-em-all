@@ -22,6 +22,7 @@ namespace Assets.Scripts
             StartCoroutine(DelayShow(TimeDelay));
 
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         private void Update()

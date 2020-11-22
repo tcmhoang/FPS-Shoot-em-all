@@ -25,6 +25,8 @@ namespace Assets.Scripts.Enemy
 
         public Animator Animator;
 
+        private bool _wasShot;
+
 
         // Start is called before the first frame update
         private void Start()
@@ -81,11 +83,13 @@ namespace Assets.Scripts.Enemy
                 Agent.destination = distance > DistanceToStop ? _targetPoint : transform.position;
 
                 //Chasing
-                if (distance > DistanceToLose)
+                if (distance > DistanceToLose && !_wasShot)
                 {
-                    _chaseCounter = KeepTrackingTime;
                     _isChasing = false;
+                    _chaseCounter = KeepTrackingTime;
                 }
+
+                _wasShot = false;
 
                 #endregion
 
@@ -135,6 +139,12 @@ namespace Assets.Scripts.Enemy
             }
             else
                 _reloadCounter = ReloadTime;
+        }
+
+        public void GetShot()
+        {
+            _wasShot = true;
+            _isChasing = true;
         }
     }
 }

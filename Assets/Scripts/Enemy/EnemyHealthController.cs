@@ -18,12 +18,14 @@ namespace Assets.Scripts.Enemy
 
         public void DamageEnemy(int damageAmount)
         {
-            CurrentHealth-=damageAmount;
-            if (CurrentHealth <= 0)
-            {
-                AudioManager.Instance.PlaySfx(SoundIndex.Explosion);
-                Destroy(gameObject);
-            }
+            CurrentHealth -= damageAmount;
+
+            if (GetComponent<EnemyController>() != null)
+                GetComponent<EnemyController>().GetShot();
+
+            if (CurrentHealth > 0) return;
+            AudioManager.Instance.PlaySfx(SoundIndex.Explosion);
+            Destroy(gameObject);
         }
     }
 }
